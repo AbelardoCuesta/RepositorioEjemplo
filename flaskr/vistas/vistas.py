@@ -152,26 +152,13 @@ class VistaAlbum(Resource):
         db.session.commit()
         return '',204
 
-"""class VistaCancionCompartir(Resource):
-    def post(self,id_cancion):
-        cancion = Cancion.query.get_or_404(id_cancion)
-        usuario = Usuario.query.get_or_404(request.json["id_usuario"])
-        cancion_compartir = CancionCompartida(usuarioCompartir=usuario.id,cancion=cancion.id,fecha= datetime.now())
-        db.session.add(cancion_compartir)
-        try:
-            db.session.commit()
-        except IntegrityError:
-            db.session.rollback()
-            return 'El usuario ya tiene compartida una cancion con dicho nombre', 409
-
-        return cancionCompartida_schema.dump(cancion_compartir)"""
-
 class VistaCancionCompartir(Resource):
     def post(self,id_usuario):
         cancion = Cancion.query.get_or_404(request.json["id_cancion"])
         string=request.json["usuariosAgregar"]
         split=string.split(",")
         usuarioNoEncontrado=[]
+        usuarioComparte = Usuario.query.filter(Usuario.id == id_usuario)
 
         for i in split:
             usuario = Usuario.query.filter(Usuario.nombre == i).first()
@@ -187,13 +174,18 @@ class VistaCancionCompartir(Resource):
         else:
             for i in split:
                 usuario = Usuario.query.filter(Usuario.nombre == i).first()
-                cancion_compartir = CancionCompartida(usuarioCompartir=usuario.id, cancion=cancion.id, fecha=datetime.now())
-                db.session.add(cancion_compartir)
-                try:
-                    db.session.commit()
-                except IntegrityError:
-                    db.session.rollback()
-                    return 'El usuario ya tiene compartida una cancion con dicho nombre', 409
+                if usuario.id == id_usuario:
+                    return 'No se puede autocompartir una cancion', 409
+
+                else:
+                    cancion_compartir = CancionCompartida(usuarioCompartir=usuario.id, cancion=cancion.id, fecha=datetime.now())
+                    db.session.add(cancion_compartir)
+                    try:
+                        db.session.commit()
+                        return 'Compartida la cancion exitosamente', 200
+                    except IntegrityError:
+                        db.session.rollback()
+                        return 'El usuario ya tiene compartida una cancion con dicho nombre', 409
 
     def get(self,id_usuario):
         usuario = Usuario.query.get_or_404(id_usuario)
