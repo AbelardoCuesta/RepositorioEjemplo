@@ -11,7 +11,7 @@ export class AlbumDetailComponent implements OnInit {
 
   @Input() album: Album;
   @Output() deleteAlbum = new EventEmitter();
-  
+
   userId: number;
   token: string;
 
@@ -32,9 +32,17 @@ export class AlbumDetailComponent implements OnInit {
   goToJoinCancion(){
     this.routerPath.navigate([`/albumes/join/${this.album.id}/${this.userId}/${this.token}`])
   }
-  
+
   eliminarAlbum(){
     this.deleteAlbum.emit(this.album.id)
   }
 
+  goToCompartir(){
+    this.routerPath.navigate([`/albumes/compartir/${this.album.id}/${this.userId}/${this.token}`])
+  }
+
+  crearComentario(){
+    console.log('boton crear comentario token : ' && this.token) ;
+    this.routerPath.navigate([`/albumes/comentario/${this.album.id}/${this.userId}/${this.token}`])
+  }
 }

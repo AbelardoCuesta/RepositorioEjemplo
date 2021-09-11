@@ -1,0 +1,42 @@
+
+<!-- <div class="container"> -->
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <div >
+      
+        <form class="mx-5 my-3" [formGroup]="comentarioForm" (ngSubmit)="createComentario(comentarioForm.value)">
+
+          <div class="form-group my-2">
+            <div class="row">
+              <div class="col-12">
+                <input type="text" class="form-control" formControlName="comentario" placeholder="Comentario">
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-8">
+                <div class="alert alert-danger my-3" *ngIf="comentarioForm.get('comentario')?.hasError('required') && comentarioForm.get('comentario')?.touched">
+                  Debe ingresar un comentario para el álbum
+                </div>
+                <div class="alert alert-danger my-3" *ngIf="comentarioForm.get('comentario')?.hasError('minlength')">
+                  El comentario debe tener por lo menos un carácter
+                </div>
+                <div class="alert alert-danger my-3" *ngIf="comentarioForm.get('comentario')?.hasError('maxlength')">
+                  El comentario no debe exceder los 1000 carácteres
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row mt-4">
+            <div class="col-6 text-end">
+              <button class="btn btn-danger" (click)="cancelCreate()">Cancelar</button>
+            </div>
+            <div class="col-6 text-start">
+              <button type="submit" class="btn btn-primary" [disabled]="!comentarioForm.valid">Crear</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- </div> -->

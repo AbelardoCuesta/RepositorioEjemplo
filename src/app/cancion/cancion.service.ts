@@ -9,7 +9,7 @@ import { Album } from '../album/album';
 })
 export class CancionService {
 
-  private backUrl: string = "https://proyecto-ionic.herokuapp.com"
+  private backUrl: string = "http://localhost:5000"
 
   constructor(private http: HttpClient) { }
 

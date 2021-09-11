@@ -1,0 +1,13 @@
+button{
+  text-transform: uppercase
+}
+
+.icon{
+  cursor: pointer;
+}
+
+.username{
+  font-size: small;
+}
+
+
