@@ -9,7 +9,7 @@ import { Cancion } from '../cancion/cancion';
 })
 export class AlbumService {
 
-  private backUrl: string = "https://proyecto-ionic.herokuapp.com"
+  private backUrl: string = "http://localhost:5000"
 
   constructor(private http: HttpClient) { }
 
@@ -54,6 +54,10 @@ export class AlbumService {
 
   asociarCancion(albumId: number, cancionId: number): Observable<Cancion>{
     return this.http.post<Cancion>(`${this.backUrl}/album/${albumId}/canciones`, {"id_cancion": cancionId})
+  }
+
+  compartirAlbum(idUsuario: number, albumId: number):Observable<Album>{
+    return this.http.post<Album>(`${this.backUrl}/compartir/album/${albumId}`, {"id_usuario": idUsuario})
   }
 
 }

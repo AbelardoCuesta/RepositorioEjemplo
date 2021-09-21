@@ -50,14 +50,15 @@ export class CancionListComponent implements OnInit {
   onSelect(cancion: Cancion, indice: number){
     this.indiceSeleccionado = indice
     this.cancionSeleccionada = cancion
-    this.cancionService.getAlbumesCancion(cancion.id)
-    .subscribe(albumes => {
-      this.cancionSeleccionada.albumes = albumes
-    },
-    error => {
-      this.showError(`Ha ocurrido un error: ${error.message}`)
-    })
-
+    if(cancion){
+      this.cancionService.getAlbumesCancion(cancion.id)
+      .subscribe(albumes => {
+        this.cancionSeleccionada.albumes = albumes
+      },
+      error => {
+        this.showError(`Ha ocurrido un error: ${error.message}`)
+      })
+    }
   }
 
   buscarCancion(busqueda: string){

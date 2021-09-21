@@ -1,0 +1,49 @@
+@use '~@angular/material' as mat;
+@include mat.core();
+// import our custom theme
+@import 'palette.scss';
+
+$my-app-primary: mat.define-palette($main-color);
+$my-app-accent:  mat.define-palette($primary-color);
+$my-app-warn: mat.define-palette(mat.$red-palette);
+$my-app-theme: mat.define-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+// Emit theme-dependent styles for common features used across multiple components.
+@include mat.core-theme($my-app-theme);
+@include mat.toolbar-theme($my-app-theme);
+@include mat.icon-theme($my-app-theme);
+@include mat.button-theme($my-app-theme);
+@include mat.tooltip-theme($my-app-theme);
+@include mat.menu-theme($my-app-theme);
+
+body {
+  padding-bottom: 70px;
+  background-color: #f8f9fa;
+}
+
+
+.header{
+  background-color: mat.get-color-from-palette($my-app-primary);
+}
+
+.header  a{
+  color: #FFF !important;
+}
+
+
+.toolbar-spacer{
+  flex: 1 1 auto;
+}
+
+.logout > .mat-button-wrapper:hover {
+  color: mat.get-color-from-palette($my-app-accent);
+}
+
+.menu > .mat-button-wrapper:hover {
+  color: mat.get-color-from-palette($my-app-accent);
+  padding-bottom: 3px;
+  border-bottom: 1px solid mat.get-color-from-palette($my-app-accent);
+}
+
+tr:nth-child(even){
+    background-color: #f8f9fa;
+}

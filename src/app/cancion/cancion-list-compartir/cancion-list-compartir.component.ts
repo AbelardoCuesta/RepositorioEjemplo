@@ -42,20 +42,20 @@ export class CancionListCompartirComponent implements OnInit {
       this.cancionesCompartidas = cancionesCompartidas
       this.mostrarCancionesCompartidas = cancionesCompartidas
       this.onSelect(this.mostrarCancionesCompartidas[0], 0)
-      console.log(this.cancionesCompartidas)
+      //console.log(this.cancionesCompartidas)
     })
   }
 
   onSelect(cancion: Cancion, indice: number){
     this.indiceSeleccionado = indice
     this.cancionSeleccionada = cancion
-    this.cancionService.getAlbumesCancion(cancion.id)
-    .subscribe(albumes => {
-      this.cancionSeleccionada.albumes = albumes
-    },
-    error => {
-      this.showError(`Ha ocurrido un error: ${error.message}`)
-    })
+    // this.cancionService.getAlbumesCancion(cancion.id)
+    // .subscribe(albumes => {
+    //   this.cancionSeleccionada.albumes = albumes
+    // },
+    // error => {
+    //   this.showError(`Ha ocurrido un error: ${error.message}`)
+    // })
 
   }
 

@@ -17,18 +17,28 @@ export class UsuarioLoginComponent implements OnInit {
     private usuarioService: UsuarioService,
     private router: Router
     ) { }
-  
+
   error: boolean = false
 
   ngOnInit() {
+    if(this.usuarioService.isLoggedIn){
+      const userId = localStorage.getItem('user');
+      const token =  localStorage.getItem('token');
+      this.router.navigate([`/albumes/${userId}/${token}`])
+    }
   }
 
   onLogInUsuario(nombre: string, contrasena: string){
     this.error = false
-    
+
     this.usuarioService.userLogIn(nombre, contrasena)
     .subscribe(res => {
+      this.usuarioService.successLogin();
       const decodedToken = this.helper.decodeToken(res.token);
+      localStorage.setItem('authenticated', 'true');
+      localStorage.setItem('username', nombre);
+      localStorage.setItem('user',decodedToken.sub)
+      localStorage.setItem('token',res.token)
       this.router.navigate([`/albumes/${decodedToken.sub}/${res.token}`])
     },
     error => {

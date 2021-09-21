@@ -9,8 +9,14 @@ import { CancionCreateComponent } from './cancion/cancion-create/cancion-create.
 import { CancionEditComponent } from './cancion/cancion-edit/cancion-edit.component';
 import { AlbumJoinCancionComponent } from './album/album-join-cancion/album-join-cancion.component';
 import { UsuarioSignupComponent } from './usuario/usuario-signup/usuario-signup.component';
+import { AuthGuardService } from './auth-guard.service';
+import { AlbumCompartirComponent } from './album/album-compartir/album-compartir.component';
+import { AlbumListCompartirComponent } from './album/album-list-compartir/album-list-compartir.component';
 import { CancionCompartirComponent } from './cancion/cancion-compartir/cancion-compartir.component';
 import { CancionListCompartirComponent } from './cancion/cancion-list-compartir/cancion-list-compartir.component';
+import { AlbumComentarioComponent } from './album/album-comentario/album-comentario.component';
+import { AcercaComponent } from './acerca-de/acerca/acerca.component';
+
 
 const routes: Routes = [
   {
@@ -29,40 +35,69 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'acerca/:userId/:userToken',
+    component: AcercaComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
     path: 'albumes/:userId/:userToken',
-    component: AlbumListComponent
+    component: AlbumListComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'albumes/create/:userId/:userToken',
-    component: AlbumCreateComponent
+    component: AlbumCreateComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'albumes/edit/:albumId/:userId/:userToken',
-    component: AlbumEditComponent
+    component: AlbumEditComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'albumes/join/:albumId/:userId/:userToken',
-    component: AlbumJoinCancionComponent
+    component: AlbumJoinCancionComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'albumes/compatir/:albumId/:userId/:userToken',
+    component: AlbumCompartirComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'albumes/compartir/:userId/:userToken',
+    component: AlbumListCompartirComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'canciones/:userId/:userToken',
-    component: CancionListComponent
+    component: CancionListComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'canciones/create/:userId/:userToken',
-    component: CancionCreateComponent
+    component: CancionCreateComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'canciones/edit/:cancionId/:userId/:userToken',
-    component: CancionEditComponent
+    component: CancionEditComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: 'canciones/compartir/:cancionId/:userId/:userToken',
-    component: CancionCompartirComponent
+    component: CancionCompartirComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'canciones/compartir/:userId/:userToken',
-    component: CancionListCompartirComponent
+    component: CancionListCompartirComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'albumes/comentario/:albumId/:userId/:userToken',
+    component: AlbumComentarioComponent,
+    canActivate: [AuthGuardService]
   }
 ];
 
