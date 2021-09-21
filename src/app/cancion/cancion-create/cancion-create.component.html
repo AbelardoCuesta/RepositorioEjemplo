@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <div class="card mx-3 my-5">
+        <div class="row">
+          <div class="col-12 text-center">
+            <p class="mt-5 mb-2 fs-3 fw-bold">Crear Canción</p>
+          </div>
+        </div>
+
+        <form class="mx-5 my-3" [formGroup]="cancionForm" (ngSubmit)="createCancion(cancionForm.value)">
+          <!-- Titulo -->
+          <div class="row">
+            <mat-form-field class="col-12" appearance="fill">
+              <mat-label>Título</mat-label>
+              <input formControlName="titulo" matInput placeholder="Título de la canción">
+            </mat-form-field>
+            <!-- Seccion de errores -->
+            <div class="alert alert-danger my-3" *ngIf="cancionForm.get('titulo')?.hasError('required') && cancionForm.get('titulo')?.touched">
+            Debe ingresar un título para el álbum
+            </div>
+            <div class="alert alert-danger my-3" *ngIf="cancionForm.get('titulo')?.hasError('maxlength')">
+              El título no debe exceder los 128 carácteres
+            </div>
+          </div>
+          <!-- Tiempo -->
+          <div class="row">
+            <mat-form-field class="col-6" appearance="fill">
+              <mat-label>Minutos</mat-label>
+              <input formControlName="minutos" matInput placeholder="mm">
+            </mat-form-field>
+            <mat-form-field class="col-6" appearance="fill">
+              <mat-label>Segundos</mat-label>
+              <input formControlName="segundos" matInput placeholder="ss">
+            </mat-form-field>
+            <!-- Seccion de errores -->
+            <div class="alert alert-danger my-3" *ngIf="(cancionForm.get('minutos')?.hasError('required') && cancionForm.get('minutos')?.touched) || (cancionForm.get('segundos')?.hasError('required') && cancionForm.get('segundos')?.touched)">
+              Debe ingresar un tiempo de duración para la canción
+            </div>
+            <div class="alert alert-danger my-3" *ngIf="cancionForm.get('minutos')?.hasError('maxlength')">
+              Los minutos no deben exceder los 2 carácteres
+            </div>
+            <div class="alert alert-danger my-3" *ngIf="cancionForm.get('segundos')?.hasError('maxlength')">
+              Los segundos no deben exceder los 2 carácteres
+            </div>
+            <div class="alert alert-danger my-3" *ngIf="cancionForm.get('minutos')?.hasError('pattern') || cancionForm.get('segundos')?.hasError('pattern')">
+              Solo debe ingresar números
+            </div>
+          </div>
+          <!-- Interprete -->
+          <div class="row">
+            <mat-form-field class="col-12" appearance="fill">
+              <mat-label>Intérprete</mat-label>
+              <input formControlName="interprete" matInput placeholder="Intérprete de la canción">
+            </mat-form-field>
+            <!-- Seccion de errores -->
+            <div class="alert alert-danger my-3" *ngIf="cancionForm.get('interprete')?.hasError('required') && cancionForm.get('interprete')?.touched">
+              Debe ingresar un interprete para la canción
+            </div>
+            <div class="alert alert-danger my-3" *ngIf="cancionForm.get('interprete')?.hasError('maxlength')">
+              El interprete no debe exceder los 128 carácteres
+            </div>
+          </div>
+          <!-- Botones -->
+          <div class="row mt-4">
+            <div class="col-6 text-end">
+              <button mat-raised-button (click)="cancelCreate()">Cancelar</button>
+            </div>
+            <div class="col-6 text-start">
+              <button type="submit" mat-raised-button color="primary" [disabled]="!cancionForm.valid">Crear</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
